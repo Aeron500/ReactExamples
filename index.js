@@ -1,14 +1,36 @@
 import React, { useState } from "react";
 const App = () => {
-  const [number, setNumber] = useState(1);
-  const changeValue = (result) => {
-    result === "inc" ? setNumber(number + 1) : setNumber(number - 1);
-  };
+  const [color, setcolor] = useState("grey");
+  const [count, setCount] = useState(0);
+  const [reactOptions, setReactOptions] = useState(false);
+  const changeColor = () => {
+    if (count === 1) {
+      setcolor("grey");
+      setCount(count - 1);
+    } else {
+      setcolor("blue");
+      setCount(count + 1);
+    }
+  }
+    const showReactionDiv = () => {
+      setReactOptions(true);
+    };
+  
+
   return (
     <div>
-      <h1>{number}</h1>
-      <button onClick={() => changeValue("inc")}>increase</button>
-      <button onClick={() => changeValue("dec")}>decrease</button>
+      {reactOptions ? (
+        <div>
+          <button>Haha</button>
+          {count}
+          <button>Angry</button>
+          {count}
+        </div>
+      ) : null}
+      <button onClick={changeColor} onMouseEnter={showReactionDiv} style={{ backgroundColor: color }} >
+        Like
+      </button>
+      {count}
     </div>
   );
 };
