@@ -1,37 +1,45 @@
-import React, { useState } from "react";
+import "./styles.css";
+import { useState } from "react";
 const App = () => {
-  const [color, setcolor] = useState("grey");
-  const [count, setCount] = useState(0);
-  const [reactOptions, setReactOptions] = useState(false);
-  const changeColor = () => {
-    if (count === 1) {
-      setcolor("grey");
-      setCount(count - 1);
+  const [color, setColor] = useState(null);
+  const [showReact, setShowReact] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+  const [currentReact, setCurrentReact] = useState("Like");
+
+  const changeLikeStatus = (reactions) => {
+    if (likeCount == 1) {
+      setColor(null);
+      setLikeCount(0);
+      setCurrentReact("Like");
     } else {
-      setcolor("blue");
-      setCount(count + 1);
+      setColor("red");
+      setLikeCount(1);
+      setCurrentReact(reactions);
     }
-  }
-    const showReactionDiv = () => {
-      setReactOptions(true);
-    };
-  
+  };
+  const showReactionDiv = () => {
+    setShowReact(true);
+  };
 
   return (
     <div>
-      {reactOptions ? (
+      {showReact ? (
         <div>
-          <button>Haha</button>
-          {count}
-          <button>Angry</button>
-          {count}
+          <button onClick={() => changeLikeStatus("Like")}>Like</button>
+          <button onClick={() => changeLikeStatus("Hoho")}>Hoho</button>
+          <button onClick={() => changeLikeStatus("Wow")}>Wow</button>
         </div>
       ) : null}
-      <button onClick={changeColor} onMouseEnter={showReactionDiv} style={{ backgroundColor: color }} >
-        Like
+      <button
+        onMouseOver={showReactionDiv}
+        onClick={changeLikeStatus}
+        style={{ backgroundColor: color }}
+      >
+        {currentReact}
       </button>
-      {count}
+      {likeCount}
     </div>
   );
 };
+
 export default App;
